@@ -94,11 +94,7 @@ public class ContactoService {
                 return contacto;
             }
         }
-
-        throw new ContactNotFoundException(
-                "No se encontró un contacto con el nombre "
-                        + firstName + " " + lastName
-        );
+        return null;
     }
 
     //--Eliminar contacto
@@ -106,10 +102,6 @@ public class ContactoService {
         Contacto contacto = buscarContacto(firstName, lastName);
         contactos.remove(contacto);
         System.out.println("Contacto " + firstName + lastName + " eliminado de manera correcta");
-        throw new ContactNotFoundException(
-                "No se encontró un contacto con el nombre "
-                        + firstName + " " + lastName
-        );
     }
 
     //--Modificar telefono
@@ -118,10 +110,6 @@ public class ContactoService {
         System.out.println("Introduce el nuevo número de telefono: ");
         contacto.setContactNumber(scan.nextLong());
         System.out.println("Número de teléfono del contacto " + firstName + lastName + " modificado de manera correcta");
-        throw new ContactNotFoundException(
-                "No se encontró un contacto con el nombre "
-                        + firstName + " " + lastName
-        );
     }
 
     //--Agenda llena
