@@ -73,6 +73,8 @@ public class ContactoService {
                     return true;
                 }
             }
+            return false;
+        }
             //--Mostrar la lista de contactos
             public List<Contacto> getContactos () {
                 return contactos;
@@ -83,14 +85,13 @@ public class ContactoService {
 
             //--Modificar telefono
 
-        }        //--Agenda llena
+            //--Agenda llena
 
         //--Espacios libres
         public int espaciosLibres(){
-            int limite = 10;
             int numContactos = contactos.size();
 
-            return limite - numContactos;
+            return maxContactos - numContactos;
         }
 
 }
