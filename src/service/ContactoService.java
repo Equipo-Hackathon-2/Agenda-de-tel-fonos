@@ -1,5 +1,6 @@
 package service;
 
+import exceptions.ContactNotFoundException;
 import model.Contacto;
 
 import java.util.ArrayList;
@@ -16,7 +17,23 @@ public class ContactoService {
         return contactos;
     }
         //--Buscar Contacto(String nombre,String Apellido)
+        public Contacto buscarContacto(String firstName, String lastName)
+                throws ContactNotFoundException {
 
+            for (Contacto contacto : contactos) {
+
+                if (contacto.getFirstName().equalsIgnoreCase(firstName)
+                        && contacto.getLastName().equalsIgnoreCase(lastName)) {
+
+                    return contacto;
+                }
+            }
+
+            throw new ContactNotFoundException(
+                    "No se encontró un contacto con el nombre "
+                            + firstName + " " + lastName
+            );
+        }
         //--Eliminar contacto
 
         //--Modificar telefono
