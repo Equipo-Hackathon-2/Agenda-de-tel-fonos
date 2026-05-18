@@ -76,10 +76,7 @@ public class ContactoService {
                 return contacto;
             }
         }
-        throw new ContactNotFoundException(
-                "No se encontró un contacto con el nombre "
-                        + firstName + " " + lastName
-        );
+        return null;
     }
     //--Eliminar contacto
     public void eliminarContacto(String firstName, String lastName)
