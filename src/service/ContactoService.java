@@ -126,6 +126,19 @@ public class ContactoService {
 
     //--Agenda llena
 
+    public boolean agendaLlena() {
+
+        if (contactos.size() >= maxContactos) {
+
+            System.out.println(
+                    "La agenda está llena. No hay espacio disponible para nuevos contactos.");
+
+            return true;
+        }
+
+        return false;
+    }
+
     //--Espacios libres
     public int espaciosLibres(){
         int numContactos = contactos.size();
