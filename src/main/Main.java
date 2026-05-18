@@ -24,15 +24,16 @@ public class Main {
                     System.out.println(service.getContactos());
                     break;
                 case 2:{
-                if(service.agendaLlena()){
-                    break;
-                }
+                    if(service.agendaLlena()){
+                        break;
+                    }
                     System.out.println("Ingrese el nombre y apellido del contacto a agregar.");
                     System.out.println("Nombre: ");
                     String firstName = scan.next();
                     System.out.println("Apellido: ");
                     String lastName = scan.next();
-                    if(service.existeContacto(service.buscarContacto(firstName,lastName))){
+                    Contacto contactoBuscado = service.buscarContacto(firstName,lastName);
+                    if(contactoBuscado != null){
                         System.out.println("Ese contacto ya existe. No pueden haber duplicados");
                         break;
                     }
