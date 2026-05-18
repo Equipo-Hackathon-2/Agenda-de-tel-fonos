@@ -24,5 +24,11 @@ public class ContactoService {
         //--Agenda llena
 
         //--Espacios libres
+        public int espaciosLibres(){
+            int limite = 10;
+            int numContactos = contactos.size();
+
+            return limite - numContactos;
+        }
 
 }
