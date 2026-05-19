@@ -3,7 +3,7 @@ package model;
 public class Contacto {
     private String firstName;
     private String lastName;
-    private long contactNumber;
+    private Long contactNumber;
 
     public Contacto(String firstName, String lastName, long contactNumber) {
         this.firstName = firstName;
@@ -27,7 +27,7 @@ public class Contacto {
         this.lastName = lastName;
     }
 
-    public long getContactNumber() {
+    public Long getContactNumber() {
         return contactNumber;
     }
 
