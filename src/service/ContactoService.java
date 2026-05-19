@@ -32,7 +32,6 @@ public class ContactoService {
             return;
         }
         if(agendaLlena()) {
-            System.out.println("Agenda llena");
             return;
         }
         if(existeContacto(contacto)) {
@@ -47,6 +46,10 @@ public class ContactoService {
     //---Verificar si un contacto existe en la lista
     public boolean existeContacto(
             Contacto contacto) {
+        if (contacto == null) {
+            return false;
+        }
+
         for (Contacto c : contactos) {
             if (c.getFirstName()
                     .equalsIgnoreCase(
@@ -65,47 +68,36 @@ public class ContactoService {
         return contactos;
     }
     //--Buscar Contacto(String nombre,String Apellido)
-    public Contacto buscarContacto(String firstName, String lastName)
-            throws ContactNotFoundException {
+    public Contacto buscarContacto(String firstName, String lastName) {
         for (Contacto contacto : contactos) {
+
             if (contacto.getFirstName().trim()
                     .equalsIgnoreCase(firstName.trim())
                     &&
                     contacto.getLastName().trim()
                             .equalsIgnoreCase(lastName.trim())) {
+
                 return contacto;
             }
         }
-        return null;
+
+        throw new ContactNotFoundException(
+                "No se encontró el contacto: "
+                        + firstName + " " + lastName
+        );
     }
     //--Eliminar contacto
-    public void eliminarContacto(String firstName, String lastName)
-            throws ContactNotFoundException {
-        Contacto contacto =
-                buscarContacto(firstName, lastName);
+    public void eliminarContacto(String firstName, String lastName) {
+        Contacto contacto = buscarContacto(firstName, lastName);
         contactos.remove(contacto);
-        System.out.println(
-                "Contacto " + firstName + " "
-                        + lastName
-                        + " eliminado de manera correcta"
-        );
+        System.out.println("Contacto " + firstName + " " + lastName + " eliminado de manera correcta");
     }
     //--Modificar telefono
-    public void modificarTelefono(String firstName,
-                                  String lastName)
-            throws ContactNotFoundException {
-        Contacto contacto =
-                buscarContacto(firstName, lastName);
-        System.out.println(
-                "Introduce el nuevo número de teléfono: ");
-        contacto.setContactNumber(
-                scan.nextLong());
-        System.out.println(
-                "Número de teléfono del contacto "
-                        + firstName + " "
-                        + lastName
-                        + " modificado de manera correcta"
-        );
+    public void modificarTelefono(String firstName, String lastName) {
+        Contacto contacto = buscarContacto(firstName, lastName);
+        System.out.print("Introduce el nuevo número telefónico: ");
+        contacto.setContactNumber(scan.nextLong());
+        System.out.println("Teléfono del contacto " + firstName + " " + lastName + " editado de manera correcta");
     }
 
     //--Agenda llena

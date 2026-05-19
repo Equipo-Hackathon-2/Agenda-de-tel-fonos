@@ -1,5 +1,6 @@
 package main;
 
+import exceptions.ContactNotFoundException;
 import model.Contacto;
 import service.ContactoService;
 
@@ -28,71 +29,68 @@ public class Main {
                         break;
                     }
                     System.out.println("Ingrese el nombre y apellido del contacto a agregar.");
-                    System.out.println("Nombre: ");
+                    System.out.print("Nombre: ");
                     String firstName = scan.next();
-                    System.out.println("Apellido: ");
+                    System.out.print("Apellido: ");
                     String lastName = scan.next();
-                    Contacto contactoBuscado = service.buscarContacto(firstName,lastName);
-                    if(contactoBuscado != null){
-                        System.out.println("Ese contacto ya existe. No pueden haber duplicados");
-                        break;
-                    }
-                    System.out.println("Ingrese el número de teléfono del contacto: ");
+                    System.out.print("Ingrese el número de teléfono del contacto: ");
                     Long numTel = scan.nextLong();
                     Contacto contacto = new Contacto(firstName,lastName,numTel);
                     service.addContacto(contacto);
                     break;}
                 case 3:{
                     System.out.println("Ingrese el nombre y apellido del contacto a borrar.");
-                    System.out.println("Nombre: ");
+                    System.out.print("Nombre: ");
                     String firstName = scan.next();
-                    System.out.println("Apellido: ");
+                    System.out.print("Apellido: ");
                     String lastName = scan.next();
-                    if(service.existeContacto(service.buscarContacto(firstName,lastName))){
+                    try {
                         service.eliminarContacto(firstName,lastName);
-                    } else{
-                        System.out.println("No se encontró el contacto.");
+                    } catch (ContactNotFoundException e){
+                        System.out.println(e.getMessage());
                     }
                     break;}
                 case 4:{
                     System.out.println("Ingrese el nombre y apellido del contacto a modificar.");
-                    System.out.println("Nombre: ");
+                    System.out.print("Nombre: ");
                     String firstName = scan.next();
-                    System.out.println("Apellido: ");
+                    System.out.print("Apellido: ");
                     String lastName = scan.next();
-                    if(service.existeContacto(service.buscarContacto(firstName,lastName))){
+                    try{
                         service.modificarTelefono(firstName,lastName);
-                    } else{
-                        System.out.println("No se encontró el contacto.");
+                    } catch (ContactNotFoundException e){
+                        System.out.println(e.getMessage());
                     }
                     break;}
                 case 5:{
                     System.out.println("Ingrese el nombre y apellido del contacto a evaluar.");
-                    System.out.println("Nombre: ");
+                    System.out.print("Nombre: ");
                     String firstName = scan.next();
-                    System.out.println("Apellido: ");
+                    System.out.print("Apellido: ");
                     String lastName = scan.next();
-                    if(service.existeContacto(service.buscarContacto(firstName,lastName))){
-                        System.out.println("Ese contacto si existe.");
-                        break;
-                    } else{
-                        System.out.println("Ese contacto no existe.");
+                    try {
+                        Contacto contacto = service.buscarContacto(firstName, lastName);
+                        if (service.existeContacto(contacto)) {
+                            System.out.println("El contacto sí existe.");
+                        }
+                    } catch (ContactNotFoundException e) {
+                        System.out.println(e.getMessage());
                     }
                     break;}
                 case 6:{
                     System.out.println("Ingrese el nombre y apellido del contacto a buscar.");
-                    System.out.println("Nombre: ");
+                    System.out.print("Nombre: ");
                     String firstName = scan.next();
-                    System.out.println("Apellido: ");
+                    System.out.print("Apellido: ");
                     String lastName = scan.next();
-                    if(service.existeContacto(service.buscarContacto(firstName,lastName))){
-                        System.out.println(service.buscarContacto(firstName,lastName));;
-                    } else{
-                        System.out.println("No se tiene a ese contacto.");
+                    try{
+                        System.out.println(service.buscarContacto(firstName,lastName));
+                    } catch (ContactNotFoundException e){
+                        System.out.println(e.getMessage());
                     }
                     break;}
                 case 7:
-                    System.out.println("Se tienen un total de "+service.espaciosLibres()+" espacios disponibles.");
+                    System.out.println("Se tiene un total de "+service.espaciosLibres()+" espacios disponibles.");
                     break;
                 case 8:
                     if(service.agendaLlena()){
