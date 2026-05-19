@@ -4,6 +4,7 @@ import exceptions.ContactNotFoundException;
 import model.Contacto;
 import service.ContactoService;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -28,13 +29,20 @@ public class Main {
                     if(service.agendaLlena()){
                         break;
                     }
+                    Long numTel;
                     System.out.println("Ingrese el nombre y apellido del contacto a agregar.");
                     System.out.print("Nombre: ");
                     String firstName = scan.next();
                     System.out.print("Apellido: ");
                     String lastName = scan.next();
                     System.out.print("Ingrese el número de teléfono del contacto: ");
-                    Long numTel = scan.nextLong();
+                    try {
+                        numTel = scan.nextLong();
+                    } catch(InputMismatchException e){
+                        System.out.println("No se aceptan caracteres. Se pondrá el teléfono como '0'.");
+                        numTel = 0L;
+                        scan.nextLine();
+                    }
                     Contacto contacto = new Contacto(firstName,lastName,numTel);
                     service.addContacto(contacto);
                     break;}

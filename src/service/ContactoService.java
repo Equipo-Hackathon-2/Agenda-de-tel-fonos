@@ -31,9 +31,14 @@ public class ContactoService {
                     "Nombre y apellido obligatorios");
             return;
         }
-        if(agendaLlena()) {
+
+        if (contacto.getContactNumber() == null) {
+            System.out.println(
+                    "El número telefónico es obligatorio."
+            );
             return;
         }
+
         if(existeContacto(contacto)) {
 
             System.out.println("El contacto ya existe");
